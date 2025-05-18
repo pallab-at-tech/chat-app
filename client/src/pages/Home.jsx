@@ -88,7 +88,7 @@ const Home = () => {
         <p className='text-lg  mt-2 text-slate-500'>Select user to send message</p>
 
         {
-          !user?._id && (
+          !user?.token && (
 
             <Link to={"/email"} className='bg-primary py-2 px-3 rounded text-slate-200 hover:bg-teal-600'>
               Login

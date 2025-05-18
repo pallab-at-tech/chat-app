@@ -25,7 +25,7 @@ const Sidebar = () => {
 
   useEffect(() => {
 
-    if (!user?._id) {
+    if (!user?.token) {
       setAllUser([])
       return
     }
@@ -72,7 +72,7 @@ const Sidebar = () => {
   }
 
   useEffect(() => {
-    if (!user?._id) {
+    if (!user?.token) {
       setAllUser([]); // Clear sidebar users on logout
     }
   }, [user]);
@@ -95,7 +95,7 @@ const Sidebar = () => {
         <div className='flex flex-col items-center'>
           <button className='mx-auto' title={user?.name} onClick={() => {
 
-            if (!user?._id) {
+            if (!user?.token) {
               navigate("/email")
             }
             setEditUserOpen(true)
