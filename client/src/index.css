@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+body{
+    @apply bg-slate-200
+}
+
+@theme{
+    --color-primary: #00acb4;
+    --color-secoundary : #058187;
+}
+
