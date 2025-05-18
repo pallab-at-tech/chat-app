@@ -90,10 +90,17 @@ const Home = () => {
         {
           !user?.token && (
 
-            <Link to={"/email"} className='bg-primary py-2 px-3 rounded text-slate-200 hover:bg-teal-600'>
-              Login
-            </Link>
-            
+            <div className='mt-2 text-center'>
+              <Link to={"/email"} className='bg-primary font-semibold py-2 px-3 rounded text-slate-200 hover:bg-teal-600'>
+                Login
+              </Link>
+
+              <Link to={"/register"} className='text-xm block font-semibold  mt-2 text-blue-500 hover:text-blue-700'>Don't have account ?</Link>
+
+            </div>
+
+
+
           )
         }
       </div>
