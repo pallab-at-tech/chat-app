@@ -30,7 +30,7 @@ app.get('/', (request, response) => {
 app.use("/api",router)
 
 connectDB().then(() => {
-    server.listen(PORT, '0.0.0.0', () => {
+    server.listen(PORT, () => {
         console.log("sever running at", PORT)
     })
 })
