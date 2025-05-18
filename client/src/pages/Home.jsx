@@ -13,6 +13,7 @@ const Home = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
+  const token = localStorage.getItem("token");
 
   // console.log("user",user)
 
@@ -88,7 +89,7 @@ const Home = () => {
         <p className='text-lg  mt-2 text-slate-500'>Select user to send message</p>
 
         {
-          !user?.token && (
+          !Boolean(token)  && (
 
             <div className='mt-2 text-center'>
               <Link to={"/email"} className='bg-primary font-semibold py-2 px-3 rounded text-slate-200 hover:bg-teal-600'>
