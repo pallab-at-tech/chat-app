@@ -25,11 +25,16 @@ const Sidebar = () => {
 
   useEffect(() => {
 
+    if (!user?._id) {
+      setAllUser([])
+      return
+    }
+
     if (socketConnection) {
       socketConnection.emit('sidebar', user?._id)
 
       socketConnection.on('conversation', (data) => {
-        console.log("conversation", data)
+        // console.log("conversation", data)
 
         const conversationUserData = data.map((conversationUser, index) => {
           if (conversationUser?.sender?._id === conversationUser?.receiver?._id) {
@@ -58,11 +63,19 @@ const Sidebar = () => {
 
   }, [socketConnection, user])
 
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     dispatch(logout())
     navigate("/email")
     localStorage.clear()
+    setAllUser([])
+
   }
+
+  useEffect(() => {
+    if (!user?._id) {
+      setAllUser([]); // Clear sidebar users on logout
+    }
+  }, [user]);
 
   return (
     <div className='h-full w-full grid grid-cols-[48px_1fr] bg-white'>
@@ -80,15 +93,26 @@ const Sidebar = () => {
         </div>
 
         <div className='flex flex-col items-center'>
-          <button className='mx-auto' title={user?.name} onClick={() => setEditUserOpen(true)}>
+          <button className='mx-auto' title={user?.name} onClick={() => {
+
+            if (!user?._id) {
+              navigate("/email")
+            }
+            setEditUserOpen(true)
+          }} >
             <Avatar width={40} height={40} name={user.name} imageUrl={user?.profile_pic} userId={user?._id} />
           </button>
 
-          <button className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded' title='logout' onClick={handleLogout}>
-            <span className='-ml-2'>
-              <BiLogOut size={20} />
-            </span>
-          </button>
+          {
+            user?._id && (
+              <button className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded' title='logout' onClick={handleLogout}>
+                <span className='-ml-2'>
+                  <BiLogOut size={20} />
+                </span>
+              </button>
+            )
+          }
+
         </div>
 
       </div>
@@ -115,9 +139,13 @@ const Sidebar = () => {
           }
 
           {
+            console.log("allUser", allUser)
+          }
+
+          {
             allUser.map((conv, index) => {
               return (
-                <NavLink to={"/"+conv?.userDetails?._id} key={conv?._id} className='flex items-center gap-2 py-3 px-2 border border-transparent hover:border-primary rounded hover:bg-slate-100 cursor-pointer'>
+                <NavLink to={"/" + conv?.userDetails?._id} key={conv?._id} className='flex items-center gap-2 py-3 px-2 border border-transparent hover:border-primary rounded hover:bg-slate-100 cursor-pointer'>
                   <div>
                     <Avatar
                       imageUrl={conv?.userDetails?.profile_pic}

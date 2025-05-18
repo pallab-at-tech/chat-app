@@ -49,7 +49,6 @@ const CheckEmailPage = () => {
       toast.error(error?.response?.data?.message)
     }
 
-    console.log("data : ", data)
   }
 
   return (

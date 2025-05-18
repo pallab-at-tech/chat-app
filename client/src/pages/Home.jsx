@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { logout, setOnlineUser, setSocketConnection, setUser } from '../redux/userSlice'
 import Sidebar from '../component/Sidebar'
 import logo from "../assets/logo.png"
@@ -35,7 +35,6 @@ const Home = () => {
         navigate("/email")
       }
 
-      // console.log("currest user details : ",response)
 
     } catch (error) {
       console.log("error", error)
@@ -47,31 +46,31 @@ const Home = () => {
   }, [])
 
   // socket connections
-  useEffect(()=>{
-    const socketConnection = io(import.meta.env.VITE_REACT_APP_BACKEND_URL,{
-      auth : {
-        token : localStorage.getItem('token')
+  useEffect(() => {
+    const socketConnection = io(import.meta.env.VITE_REACT_APP_BACKEND_URL, {
+      auth: {
+        token: localStorage.getItem('token')
       }
     })
 
 
-    socketConnection.on('onlineUser',(data)=>{
+    socketConnection.on('onlineUser', (data) => {
       dispatch(setOnlineUser(data))
     })
 
     dispatch(setSocketConnection(socketConnection))
 
-    return ()=>{
+    return () => {
       socketConnection.disconnect()
     }
-  },[])
+  }, [])
 
   const basePath = location.pathname === '/'
 
   return (
     <div className='grid  lg:grid-cols-[300px_1fr] h-screen max-w-screen'>
       <section className={`bg-white ${!basePath && "hidden"} lg:block`} >
-        <Sidebar/>
+        <Sidebar />
       </section>
 
       {/* message component */}
@@ -83,10 +82,20 @@ const Home = () => {
 
       <div className={`justify-center items-center flex-col gap-2 hidden ${!basePath ? "hidden" : "lg:flex"}`}>
         <div>
-          <img src={logo} alt="logo" width={200}/>
+          <img src={logo} alt="logo" width={200} />
         </div>
 
         <p className='text-lg  mt-2 text-slate-500'>Select user to send message</p>
+
+        {
+          !user?._id && (
+
+            <Link to={"/email"} className='bg-primary py-2 px-3 rounded text-slate-200 hover:bg-teal-600'>
+              Login
+            </Link>
+            
+          )
+        }
       </div>
     </div>
   )
