@@ -21,11 +21,12 @@ const Sidebar = () => {
   const socketConnection = useSelector(state => state?.user?.socketConnection)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const token = localStorage.getItem("token");
 
 
   useEffect(() => {
 
-    if (!user?.token) {
+    if (!Boolean(token)) {
       setAllUser([])
       return
     }
@@ -73,7 +74,7 @@ const Sidebar = () => {
   }
 
   useEffect(() => {
-    if (!user?.token) {
+    if (!Boolean(token)) {
       setAllUser([]); // Clear sidebar users on logout
     }
   }, [user]);
@@ -96,16 +97,16 @@ const Sidebar = () => {
         <div className='flex flex-col items-center'>
           <button className='mx-auto' title={user?.name} onClick={() => {
 
-            if (!user?.token) {
+            if (!Boolean(token)) {
               navigate("/email")
             }
             setEditUserOpen(true)
           }} >
-            <Avatar width={40} height={40} name={user?.token && user?.name} imageUrl={user?.profile_pic} userId={user?._id} />
+            <Avatar width={40} height={40} name={Boolean(token) && user?.name} imageUrl={user?.profile_pic} userId={user?._id} />
           </button>
 
           {
-            user?.token && (
+            Boolean(token) && (
               <button className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded' title='logout' onClick={handleLogout}>
                 <span className='-ml-2'>
                   <BiLogOut size={20} />
