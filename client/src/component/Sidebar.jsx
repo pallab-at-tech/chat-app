@@ -63,7 +63,8 @@ const Sidebar = () => {
 
   }, [socketConnection, user])
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault();
     dispatch(logout())
     navigate("/email")
     localStorage.clear()
