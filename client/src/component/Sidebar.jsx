@@ -95,15 +95,15 @@ const Sidebar = () => {
         </div>
 
         <div className='flex flex-col items-center'>
-          <button className='mx-auto' title={user?.name} onClick={(e) => {
-      e.preventDefault()
+          <div className='mx-auto' title={user?.name} onClick={(e) => {
+            e.preventDefault()
             if (!Boolean(token)) {
               navigate("/email")
             }
             setEditUserOpen(true)
           }} >
             <Avatar width={40} height={40} name={Boolean(token) && user?.name} imageUrl={user?.profile_pic} userId={user?._id} />
-          </button>
+          </div>
 
           {
             Boolean(token) && (
