@@ -26,7 +26,10 @@ const Home = () => {
 
       const response = await axios({
         url: URL,
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
 
       dispatch(setUser(response.data.data))
