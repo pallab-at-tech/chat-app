@@ -73,11 +73,11 @@ const Sidebar = () => {
 
   }
 
-  useEffect(() => {
-    if (!Boolean(token)) {
-      setAllUser([]); // Clear sidebar users on logout
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   if (!Boolean(token)) {
+  //     setAllUser([]); // Clear sidebar users on logout
+  //   }
+  // }, [token]);
 
   return (
     <div className='h-full w-full grid grid-cols-[48px_1fr] bg-white'>
@@ -95,8 +95,8 @@ const Sidebar = () => {
         </div>
 
         <div className='flex flex-col items-center'>
-          <button className='mx-auto' title={user?.name} onClick={() => {
-
+          <button className='mx-auto' title={user?.name} onClick={(e) => {
+      e.preventDefault()
             if (!Boolean(token)) {
               navigate("/email")
             }
