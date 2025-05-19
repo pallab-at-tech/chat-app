@@ -26,10 +26,10 @@ const Sidebar = () => {
 
   useEffect(() => {
 
-    if (!Boolean(token)) {
-      setAllUser([])
-      return
-    }
+    // if (!Boolean(token)) {
+    //   setAllUser([])
+    //   return
+    // }
 
     if (socketConnection) {
       socketConnection.emit('sidebar', user?._id)
@@ -77,7 +77,7 @@ const Sidebar = () => {
     if (!Boolean(token)) {
       setAllUser([]); // Clear sidebar users on logout
     }
-  }, [user]);
+  }, [token]);
 
   return (
     <div className='h-full w-full grid grid-cols-[48px_1fr] bg-white'>
