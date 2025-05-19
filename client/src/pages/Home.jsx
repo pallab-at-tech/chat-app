@@ -31,8 +31,11 @@ const Home = () => {
 
       dispatch(setUser(response.data.data))
 
-      if (response.data.data.logout) {
+      console.log("response.data.data out side log",response?.data?.data)
+
+      if (response?.data?.data?.logout) {
         dispatch(logout())
+        console.log("response.data.data in side log",response?.data?.data)
         // navigate("/email")
       }
 
